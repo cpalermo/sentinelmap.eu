@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="keywords" content="map, sentinel, copernicus">
+
+    <!-- mobile map -->
+    <meta name="viewport" content="width=device-width, initial-scale=.55, maximum-scale=.55, user-scalable=no" />
+
+    <!-- description -->
+    <title>SentinelMap</title>
+
+    <!-- stylesheets -->
+    <link href="./lib/css/style.css" rel="stylesheet"/>
+    <link href="./lib/leaflet/leaflet.css" rel="stylesheet"/>
+
+    <!-- scripts -->
+    <script src="./lib/leaflet/leaflet.js"></script>
+    <script src="./lib/leaflet-hash/leaflet-hash.js"></script>
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-38472150-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    
+  </head>
+  
+  <body class="map-layout">
+    <!--
+	===============
+	Nav
+	===============
+      -->
+      <nav class="grouping">
+	<figure>
+	  <a href="#"><img alt="logo" src="./lib/images/logo.jpg"/></a>
+	</figure>
+	<ul class="left-nav">
+	  <li><a href="#"><b>SENTINELMAP.</b>EU</a></li>
+	</ul>
+	<ul class="right-nav">
+          <li><a href="./about">About</a></li>
+          <li><a href="./copyright">Copyright</a></li>
+          <li><a href="./privacy">Privacy</a></li>
+	</ul>
+      </nav> <!-- end nav -->
+      <!--
+	  ===============
+	  SubNav
+	  ===============
+	-->
+      <div class="margin"></div>
+      <nav class="grouping">
+	<ul class="left-subnav">
+	    <li><a class="active" href="#7/47.04/8.44"><b>&#9678;</b></a></li>
+	</ul>
+	<p class="nav-h1"><b>
+	    <a href="https://twitter.com/sentinelmap">@SentinelMap</a>
+	    is an open web map for
+	    <a href="https://twitter.com/search?f=tweets&q=%23Sentinel2" target="_blank">#Sentinel2</a>
+	    satellite, updated every month - </b>From June it extends for 2.4 million km² with 38.7 billion pixel.</p>
+      </nav> <!-- end subnav -->
+
+
+    <!--
+	===============
+	Map
+	===============
+      -->
+    <div id="content">
+      <div id="map">
+	<script>
+	  var Attr = '<a href="https://scihub.copernicus.eu/">Copernicus</a>' + 
+	  ' | <a href="http://sentinelmap.eu/">Sentinelmap</a>' ;
+	  var sUrl = 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg'
+
+	  var jun16 = L.tileLayer( sUrl , {id: 'sentinel.jun16', mm: '6', attribution: Attr}),
+	      may16 = L.tileLayer( sUrl , {id: 'sentinel.may16', mm: '5', attribution: Attr}),
+	      apr16 = L.tileLayer( sUrl , {id: 'sentinel.apr16', mm: '4', attribution: Attr});
+	  
+	  var map = L.map('map' , {
+	  center: [ 47.04, 8.44],
+	  zoom: 7,
+	  maxZoom: 14,
+	  minZoom: 7,
+	  layers: [jun16],
+	  zoomControl: false
+	  });
+
+	  var hash = new L.Hash(map);
+
+	  var baseLayers = {
+	  "JUNE 2016": jun16,
+	  "MAY 2016 (partial)": may16,
+	  "APRIL 2016 (partial)": apr16
+	  };
+
+	  L.control.layers(baseLayers, null, {position: 'topleft'}).addTo(map);
+
+	  L.control.zoom({position: 'topleft'}).addTo(map);
+	  	  
+	</script>
+      </div><!-- end map -->
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,218 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+body {
+    line-height: 1.4;
+    font-family: Arial, Helvetica, sans-serif;
+}
+ol, ul {
+    list-style: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* micro clear fix */
+.grouping:before,
+.grouping:after {
+    content: " ";
+    display: table;
+}
+.grouping:after {
+    clear: both;
+}
+img, iframe, video, object {
+    max-width: 100%;
+}
+strong, b {
+    font-weight: bold;
+}
+/*******************
+Global
+*******************/
+/*::-moz-selection {
+    background-color: #fff; 
+}
+::selection {
+    background-color: #fff; 
+}*/
+.wrapper {
+    max-width:960px;
+    width: 90%;
+    margin: 0 auto;
+}
+body {
+    background-color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    font-size: 16px; 
+}
+a {
+    text-decoration: none;
+    color: #eb2428;
+}
+h1 {
+    font-size: 25px;
+    line-height: 2;
+    font-weight: bold;
+    color: #0072ae;
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+.alt-h1 {
+    margin-top: 50px;
+}
+h2 {
+    font-size: 20px;
+    line-height: 1.6;
+    font-style: italic;
+    color: #0072ae;
+    margin-bottom: 12px;
+}
+p {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.alt-p p {
+    font: normal normal 18px/1.6 Goeorgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.nav-h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #008066;
+    font-size: 18px;
+    font-style: italic;
+    text-align: centre;
+    line-height: 1.6;
+}
+/*******************
+Nav
+*******************/
+.margin {
+    height: 6px;
+}
+nav {
+    background-color: #fff;
+    position: relative;
+    box-shadow: 0 6px 0px #00aa88;
+}
+nav figure {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+}
+nav img {
+    width: 40px;
+}
+/***/
+nav li a {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #008066;
+    text-transform: uppercase;
+    font-style: 15px;
+    text-align: center;
+    transition: 0.25s background-color linear;
+}
+nav li a:focus,
+nav li a:hover,
+nav li a.active {
+    background-color: #00aa88;
+    color: #fff;
+}
+/***/
+.left-nav {
+    float: left;
+}
+.left-nav > li {
+    float: left;
+    margin-left: 50px;
+}
+.left-nav > li > a {
+    float: left;
+    padding: 15px 0;
+    width: 150px;
+    border-left: 1px solid #00aa88;
+}
+.left-nav > li:first-child > a {
+    border-left: none;
+}
+.left-nav li:first-child a:focus,
+.left-nav li:first-child a:hover,
+.left-nav li:first-child a:active {
+    background-color: #fff;
+    color: #008066;
+}
+/***/
+.right-nav {
+    float: right;
+}
+.right-nav > li {
+    float: left;
+}
+.right-nav > li > a {
+    float: left;
+    padding: 16px 0;
+    width: 150px;
+    border-left: 1px solid #00aa88;
+}
+/***/
+.left-subnav {
+    float: left;
+}
+.left-subnav > li {
+    float: left;
+}
+.left-subnav > li > a {
+    float: left;
+    padding: 15px 0;
+    padding-left: 15px;
+    width: 30px;
+    border-left: 1px solid #00aa88;
+    text-align: left;
+}
+.left-subnav > li:first-child > a {
+    border-left: none;
+}
+
+/*******************
+Map
+*******************/
+html, .map-layout {
+    height: 100%;
+}
+.map-layout > #content {
+    overflow: hidden;
+    position: absolute;
+    top: 112px;
+    bottom: 0;
+    width: 100%;
+}
+.map-layout > #content > #map {
+    height: 100%;
+}
