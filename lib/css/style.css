@@ -73,6 +73,11 @@ a {
     text-decoration: none;
     color: #eb2428;
 }
+.alt-a a {
+    text-decoration: none;
+    color: #0072ae;
+    font-size: 36px;
+}
 h1 {
     font-size: 25px;
     line-height: 2;
@@ -108,8 +113,9 @@ p {
     color: #008066;
     font-size: 18px;
     font-style: italic;
-    text-align: centre;
-    line-height: 1.6;
+    text-align: left;
+    line-height: 1;
+    padding-top: 16px;
 }
 /*******************
 Nav
@@ -190,13 +196,14 @@ nav li a.active {
 }
 .left-subnav > li > a {
     float: left;
-    padding: 15px 0;
-    padding-left: 15px;
-    width: 30px;
+    padding: 8px 0;
+    padding-left: 10px;
+    width: 38px;
     border-left: 1px solid #00aa88;
     text-align: left;
-}
-.left-subnav > li:first-child > a {
+    font-size: 36px;
+    line-height: 0;
+    border-right: none;
     border-left: none;
 }
 
