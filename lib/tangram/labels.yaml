@@ -380,7 +380,7 @@ sources:
         # url:  //localhost:8080//osm/all/{z}/{x}/{y}.topojson
         # type: MVT
         # url:  http://vector.mapzen.com/osm/all/{z}/{x}/{y}.mvt
-        max_zoom: 16
+        max_zoom: 14
 
     # # Only enable this for local debug, should not be enabled for prod (app inserts these at runtime)
     # # These are all in San Francisco, California
