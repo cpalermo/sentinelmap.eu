@@ -122,7 +122,7 @@ settings:
         - &fence                      [0.827,0.808,0.780]
 
     areas:
-        - &scene1      white                    # map background
+        - &scene1      false                    # map background
         - &water1      [0.870, 0.870, 0.870]    # water wave
         - &water2      [0.760, 0.760, 0.760]    # water wave
         - &water3      [0.5, 0.5, 0.5]          # playa texture
@@ -1166,26 +1166,26 @@ layers:
 
 
     # Basemap styling
-    earth:
-        data: { source: osm, layer: earth }
-        draw:
-            polygons:
-                order: function() { return feature.sort_key; }
-                color: [1.0,1.0,1.0]
+#    earth:
+#        data: { source: osm, layer: earth }
+#        draw:
+#            polygons:
+#                order: function() { return feature.sort_key; }
+#                color: [1.0,1.0,1.0]
 
-    water:
-        data: { source: osm, layer: water }
-        draw:
-            waves:
-                interactive: true
-                order: function() { return feature.sort_key; }
-                color: [0.880, 0.880, 0.880]
-        later:
-            filter: { $zoom: { min: 12 } }
-            draw:
-                waves2:
-                    color: [0.780, 0.780, 0.780]
-                    order: function() { return feature.sort_key + 1; }
+#    water:
+#        data: { source: osm, layer: water }
+#        draw:
+#            waves:
+#                interactive: true
+#                order: function() { return feature.sort_key; }
+#                color: [0.880, 0.880, 0.880]
+#        later:
+#            filter: { $zoom: { min: 12 } }
+#            draw:
+#                waves2:
+#                    color: [0.780, 0.780, 0.780]
+#                    order: function() { return feature.sort_key + 1; }
 
         lakes:
             filter: 
