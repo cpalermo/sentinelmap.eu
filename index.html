@@ -18,6 +18,7 @@
     <!-- scripts -->
     <script src="./lib/leaflet/leaflet.js"></script>
     <script src="./lib/leaflet-hash/leaflet-hash.js"></script>
+    <script src="https://mapzen.com/tangram/tangram.min.js"></script>
 
     <script src="./lib/gscript.js"></script>
     
@@ -71,18 +72,28 @@
 	<script>
 	  var Attr = '<a href="https://scihub.copernicus.eu/">Copernicus</a>' + 
 	  ' | <a href="http://sentinelmap.eu/">Sentinelmap</a>' ;
-	  var sUrl = 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg'
+
+	  var lAttr = '| <a href="https://mapzen.com/tangram" target="_blank">Tangram</a>' +
+	  ' | <a href="http://www.openstreetmap.org/about" target="_blank">&copy; OSM contributors </a>' +
+	  ' | <a href="https://mapzen.com/" target="_blank">Mapzen</a>' ;
+	  
+	  var sUrl = 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg' ;
 
 	  var jun16 = L.tileLayer( sUrl , {id: 'sentinel.jun16', mm: '6', attribution: Attr}),
 	      may16 = L.tileLayer( sUrl , {id: 'sentinel.may16', mm: '5', attribution: Attr}),
 	      apr16 = L.tileLayer( sUrl , {id: 'sentinel.apr16', mm: '4', attribution: Attr});
+
+	  var Labels = Tangram.leafletLayer({
+          scene: './lib/tangram/labels.yaml',
+          attribution: lAttr
+	  });
 	  
 	  var map = L.map('map' , {
 	  center: [ 47.04, 8.44],
 	  zoom: 7,
 	  maxZoom: 14,
 	  minZoom: 7,
-	  layers: [jun16],
+	  layers: [jun16, Labels],
 	  zoomControl: false
 	  });
 
@@ -94,7 +105,11 @@
 	  "APRIL 2016 (partial)": apr16
 	  };
 
-	  L.control.layers(baseLayers, null, {position: 'topleft'}).addTo(map);
+	  var overlayLayers = {
+	  "Labels": Labels
+	  };
+
+	  L.control.layers(baseLayers, overlayLayers, {position: 'topleft'}).addTo(map);
 
 	  L.control.zoom({position: 'topleft'}).addTo(map);
 	  	  
