@@ -41,6 +41,7 @@
           <li><a href="./about">About</a></li>
           <li><a href="./copyright">Copyright</a></li>
           <li><a href="./privacy">Privacy</a></li>
+	  <li><a href="http://blog.sentinelmap.eu/">Blog</a></li>
 	</ul>
       </nav> <!-- end nav -->
       <!--
@@ -74,13 +75,14 @@
 	  ' Sentinel data 2016 by ' +
 	  '<a href="http://sentinelmap.eu">SentinelMap</a>' ;
 
-	  var lAttr = ' data © <a href="https://openstreetmap.org/copyright">OSM</a>' +
-	  ' contributors by ' +
+	  var lAttr = '© <a href="https://openstreetmap.org/copyright">OSM</a>' +
+	  ' contributors data by ' +
 	  '<a href="https://mapzen.com">Mapzen</a>' ;
 	  
 	  var sUrl = 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg' ;
 
-	  var jun16 = L.tileLayer( sUrl , {id: 'sentinel.jun16', mm: '6', attribution: Attr}),
+	  var jul16 = L.tileLayer( sUrl , {id: 'sentinel.jul16', mm: '7', attribution: Attr}),
+	      jun16 = L.tileLayer( sUrl , {id: 'sentinel.jun16', mm: '6', attribution: Attr}),
 	      may16 = L.tileLayer( sUrl , {id: 'sentinel.may16', mm: '5', attribution: Attr}),
 	      apr16 = L.tileLayer( sUrl , {id: 'sentinel.apr16', mm: '4', attribution: Attr});
 
@@ -94,13 +96,14 @@
 	  zoom: 7,
 	  maxZoom: 14,
 	  minZoom: 7,
-	  layers: [jun16, Labels],
+	  layers: [jul16, Labels],
 	  zoomControl: false
 	  });
 
 	  var hash = new L.Hash(map);
 
 	  var baseLayers = {
+	  "JULY 2016": jul16,
 	  "JUNE 2016": jun16,
 	  "MAY 2016 (partial)": may16,
 	  "APRIL 2016 (partial)": apr16
