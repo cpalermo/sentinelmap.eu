@@ -1,1 +1,11 @@
 lib/foundation-icons
+
+# Emacs backups & auto save files
+*~
+\#*\#
+.\#*
+
+# minified javascript and css
+*min.js
+*min.css
+
