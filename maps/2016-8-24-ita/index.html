@@ -11,14 +11,14 @@
     <title>SentinelMap</title>
 
     <!-- stylesheets -->
-    <link href="./lib/css/style.css" rel="stylesheet"/>
-    <link href="./lib/leaflet/leaflet.css" rel="stylesheet"/>
-    <link href="./lib/foundation-icons/foundation-icons.css" rel="stylesheet"/>
+    <link href="../../lib/css/style.css" rel="stylesheet"/>
+    <link href="../../lib/leaflet/leaflet.css" rel="stylesheet"/>
+    <link href="../../lib/foundation-icons/foundation-icons.css" rel="stylesheet"/>
 
     <!-- scripts -->
     <script src="http://libs.sentinelmap.eu/leaflet-0.7.7/leaflet.js"></script>
     <script src="http://libs.sentinelmap.eu/tangram-0.9.0/tangram.min.js"></script>
-    <script src="./lib/leaflet-hash/leaflet-hash.js"></script>
+    <script src="../../lib/leaflet-hash/leaflet-hash.js"></script>
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -40,15 +40,15 @@
       -->
       <nav class="grouping">
 	<figure>
-	  <a href="#"><img alt="logo" src="./lib/images/logo.jpg"/></a>
+	  <a href="../../"><img alt="logo" src="../../lib/images/logo.jpg"/></a>
 	</figure>
 	<ul class="left-nav">
-	  <li><a href="#"><b>SENTINELMAP.</b>EU</a></li>
+	  <li><a href="../../"><b>SENTINELMAP.</b>EU</a></li>
 	</ul>
 	<ul class="right-nav">
-          <li><a href="./about">About</a></li>
-          <li><a href="./copyright">Copyright</a></li>
-          <li><a href="./privacy">Privacy</a></li>
+          <li><a href="../../about">About</a></li>
+          <li><a href="../../copyright">Copyright</a></li>
+          <li><a href="../../privacy">Privacy</a></li>
 	  <li><a href="http://blog.sentinelmap.eu/">Blog</a></li>
 	</ul>
       </nav> <!-- end nav -->
@@ -60,18 +60,22 @@
       <div class="margin"></div>
       <nav class="grouping">
 	<ul class="left-subnav">
-	  <li><a href="#7/47.04/8.44"><i class="fi-web"></i></a></li>
+	  <li><a href="#7/42.7/13.24"><i class="fi-web"></i></a></li>
 	  <li><a href="https://twitter.com/sentinelmap"><i class="fi-social-twitter"></i></a></li>
 	  <li><a href="https://github.com/cpalermo"><i class="fi-social-github"></i></a></li>
 	</ul>
 	<p class="nav-h1">
-	    <b><a href="./maps/2016-8-24-ita/">Earthquake in Central Italy</a></b>
-<!--	    An open web map for
-	    <b><a href="https://sentinels.copernicus.eu" target="_blank">Sentinel-2</a>
-	    satellite</b>, updated every month - From <b>June</b> it covers <b>2.4</b> million km² with <b>38.7</b> billion pixel.-->
-	</p>
+	  <b><a href="./">Earthquake in Central Italy</a></b> - 
+	  This map contains images captured by
+	  <a href="https://sentinels.copernicus.eu" target="_blank">Sentinel-2</a>
+	  and
+	  <a href="https://medium.com/@planetlabs/earthquake-damage-italy-3c96b75c9770" target="_blank">RapidEye</a>  
+	  satellites after the
+	  <a href="http://cnt.rm.ingv.it/en/event/7073641" target="_blank">earthquake</a>
+	  that hit
+	  <a href="http://emergency.copernicus.eu/mapping/list-of-components/EMSR177" target="_blank">the centre of Italy</a>
+	  .</p>
       </nav> <!-- end subnav -->
-
 
     <!--
 	===============
@@ -88,39 +92,50 @@
 	  var lAttr = '© <a href="https://openstreetmap.org/copyright">OSM</a>' +
 	  ' contributors data by ' +
 	  '<a href="https://mapzen.com">Mapzen</a>' ;
-	  
-	  var sUrl = 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg' ;
 
-	  var jul16 = L.tileLayer( sUrl , {id: 'sentinel.jul16', mm: '7', attribution: Attr}),
-	      jun16 = L.tileLayer( sUrl , {id: 'sentinel.jun16', mm: '6', attribution: Attr}),
-	      may16 = L.tileLayer( sUrl , {id: 'sentinel.may16', mm: '5', attribution: Attr}),
-	      apr16 = L.tileLayer( sUrl , {id: 'sentinel.apr16', mm: '4', attribution: Attr});
+	  var pAttr = 'RapidEye image ©2016 Planet Labs'
+	  
+	  var sUrl = 'http://tile.sentinelmap.eu/ita/{mm}/{z}/{x}/{y}.jpg' ;
+	      rUrl = 'http://tile.sentinelmap.eu/ita/{mm}/{z}/{x}/{y}.png' ;
+
+	  var d24 = L.tileLayer( sUrl , {id: 'sentinel.d24', mm: '160824', attribution: Attr}),
+	      d14 = L.tileLayer( sUrl , {id: 'sentinel.d14', mm: '160814', attribution: Attr})
+
+	  var d25 = L.tileLayer( rUrl , {id: 'rapideye.d25', mm: '160825', attribution: pAttr});
+	  
+	  var earthquake = L.marker([42.70, 13.24]).bindPopup('Initial quake - magnitude 6.0 Mw; depth 4 km; 2016-08-24 01:36:32(UTC)');
+	      accumoli = L.marker([42.694, 13.2505]).bindPopup('Accumoli');
+	      amatrice = L.marker([42.629, 13.293]).bindPopup('Amatrice');
+	      pescara = L.marker([42.7526, 13.2713]).bindPopup('Pescara del Tronto');
+	      arquata = L.marker([42.7727, 13.2951]).bindPopup('Arquata del Tronto');
+	  
+	  var Info = L.layerGroup([earthquake, accumoli, amatrice, pescara, arquata]);
 
 	  var Labels = Tangram.leafletLayer({
-          scene: './lib/tangram/labels.yaml',
+          scene: '../../lib/tangram/labels.yaml',
           attribution: lAttr
 	  });
 	  
 	  var map = L.map('map' , {
-	  center: [ 47.04, 8.44],
-	  zoom: 7,
-	  maxZoom: 14,
-	  minZoom: 7,
-	  layers: [jul16, Labels],
+	  center: [42.7, 13.24],
+	  zoom: 12,
+	  maxZoom: 15,
+	  minZoom: 12,
+	  layers: [d25, Info],
 	  zoomControl: false
 	  });
 
 	  var hash = new L.Hash(map);
 
 	  var baseLayers = {
-	  "JULY 2016": jul16,
-	  "JUNE 2016": jun16,
-	  "MAY 2016 (partial)": may16,
-	  "APRIL 2016 (partial)": apr16
+	  "RapidEye: 2016-08-25": d25,
+	  "Sentinel-2A: 2016-08-24 10:00:32(UTC)": d24,
+	  "Sentinel-2A: 2016-08-14 10:00:32(UTC)": d14,
 	  };
 
 	  var overlayLayers = {
-	  "Labels": Labels
+	  "Labels": Labels,
+	  "Points of Interest": Info,
 	  };
 
 	  L.control.layers(baseLayers, overlayLayers, {position: 'topleft'}).addTo(map);
