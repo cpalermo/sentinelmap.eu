@@ -66,15 +66,20 @@
 	</ul>
 	<p class="nav-h1">
 	  <b><a href="./">Earthquake in Central Italy</a></b> - 
-	  This map contains images captured by
+	  This map collects all open data satellite images of the
+	  <a href="http://cnt.rm.ingv.it/en/event/7073641" target="_blank">earthquake</a>
+	  that hit
+	  <a href="http://emergency.copernicus.eu/mapping/list-of-components/EMSR177" target="_blank">the centre of Italy</a> - updating
+	</p>
+	  <!-- This map contains images captured by
 	  <a href="https://sentinels.copernicus.eu" target="_blank">Sentinel-2</a>
 	  and
-	  <a href="https://medium.com/@planetlabs/earthquake-damage-italy-3c96b75c9770" target="_blank">RapidEye</a>  
+	  <a href="https://medium.com/@planetlabs/earthquake-damage-italy-3c96b75c9770" target="_blank">RapidEye</a>
 	  satellites after the
 	  <a href="http://cnt.rm.ingv.it/en/event/7073641" target="_blank">earthquake</a>
 	  that hit
 	  <a href="http://emergency.copernicus.eu/mapping/list-of-components/EMSR177" target="_blank">the centre of Italy</a>
-	  .</p>
+	  .</p> -->
       </nav> <!-- end subnav -->
 
     <!--
@@ -93,15 +98,19 @@
 	  ' contributors data by ' +
 	  '<a href="https://mapzen.com">Mapzen</a>' ;
 
-	  var pAttr = 'RapidEye image ©2016 Planet Labs'
+	  var pAttr = 'RapidEye image ©2016 <a href="https://www.planet.com" target="_blank">Planet Labs</a>'
+
+	  var aAttr = 'Copernicus EMS ©2016 European Union <a href="http://emergency.copernicus.eu/mapping/list-of-components/EMSR177" target="_blank">EMSR177</a>'
 	  
 	  var sUrl = 'http://tile.sentinelmap.eu/ita/{mm}/{z}/{x}/{y}.jpg' ;
 	      rUrl = 'http://tile.sentinelmap.eu/ita/{mm}/{z}/{x}/{y}.png' ;
 
-	  var d24 = L.tileLayer( sUrl , {id: 'sentinel.d24', mm: '160824', attribution: Attr}),
-	      d14 = L.tileLayer( sUrl , {id: 'sentinel.d14', mm: '160814', attribution: Attr})
+	  var d24 = L.tileLayer( sUrl , {id: 'sentinel.d24', mm: '160824', attribution: Attr});
+	      d14 = L.tileLayer( sUrl , {id: 'sentinel.d14', mm: '160814', attribution: Attr});
 
 	  var d25 = L.tileLayer( rUrl , {id: 'rapideye.d25', mm: '160825', attribution: pAttr});
+	      refAcc = L.tileLayer( rUrl , {id: 'reference.accumoli', mm: 'reference_accumoli', attribution: aAttr});
+	      refAma = L.tileLayer( rUrl , {id: 'reference.amatrice', mm: 'reference_amatrice', attribution: aAttr});
 	  
 	  var earthquake = L.marker([42.70, 13.24]).bindPopup('Initial quake - magnitude 6.0 Mw; depth 4 km; 2016-08-24 01:36:32(UTC)');
 	      accumoli = L.marker([42.694, 13.2505]).bindPopup('Accumoli');
@@ -119,9 +128,9 @@
 	  var map = L.map('map' , {
 	  center: [42.7, 13.24],
 	  zoom: 12,
-	  maxZoom: 15,
+	  maxZoom: 17,
 	  minZoom: 12,
-	  layers: [d25, Info],
+	  layers: [d25, refAcc, refAma, Info],
 	  zoomControl: false
 	  });
 
@@ -134,6 +143,8 @@
 	  };
 
 	  var overlayLayers = {
+	  "Copernicus EMS Reference Map: Accumoli": refAcc,
+	  "Copernicus EMS Reference Map: Amatrice": refAma,
 	  "Labels": Labels,
 	  "Points of Interest": Info,
 	  };
