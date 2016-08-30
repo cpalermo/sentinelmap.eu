@@ -13,12 +13,35 @@ var aAttr= 'Copernicus EMS ©2016 European Union <a href="http://emergency.coper
 var sUrl= 'http://tile.sentinelmap.eu/ita/{mm}/{z}/{x}/{y}.jpg' ,
     rUrl= 'http://tile.sentinelmap.eu/ita/{mm}/{z}/{x}/{y}.png' ;
 
-var d24= L.tileLayer(sUrl, {id: 'sentinel.d24', mm: '160824', attribution: Attr}),
-    d14= L.tileLayer(sUrl, {id: 'sentinel.d14', mm: '160814', attribution: Attr});
+var d25= L.tileLayer(rUrl, {id: 'rapideye.d25',
+			    mm: '160825',
+			    maxZoom: 15,
+			    minZoom: 12,
+			    attribution: pAttr});
 
-var d25= L.tileLayer(rUrl, {id: 'rapideye.d25', mm: '160825', attribution: pAttr}),
-    refAcc= L.tileLayer(rUrl, {id: 'reference.accumoli', mm: 'reference_accumoli', attribution: aAttr}),
-    refAma= L.tileLayer(rUrl, {id: 'reference.amatrice', mm: 'reference_amatrice', attribution: aAttr});
+var d24= L.tileLayer(sUrl, {id: 'sentinel.d24',
+			    mm: '160824',
+			    maxZoom: 15,
+			    minZoom: 12,
+			    attribution: Attr});
+
+var d14= L.tileLayer(sUrl, {id: 'sentinel.d14',
+			    mm: '160814',
+			    maxZoom: 15,
+			    minZoom: 12,
+			    attribution: Attr});
+
+var m02= L.tileLayer(rUrl, {id: 'monit.02',
+			    mm: 'monit2',
+			    maxZoom: 16,
+			    minZoom: 14,
+			    attribution: aAttr});
+
+var ref= L.tileLayer(rUrl, {id: 'ref.pre',
+			    mm: 'reference',
+			    maxZoom: 16,
+			    minZoom: 14,
+			    attribution: aAttr});
 
 var earthquake= L.marker([42.70, 13.24]).bindPopup('Initial quake - magnitude 6.0 Mw; depth 4 km; 2016-08-24 01:36:32(UTC)'),
     accumoli= L.marker([42.694, 13.2505]).bindPopup('Accumoli'),
@@ -36,23 +59,23 @@ var Labels= Tangram.leafletLayer({
 var map= L.map('map', {
     center: [42.7, 13.24],
     zoom: 12,
-    maxZoom: 17,
+    maxZoom: 16,
     minZoom: 12,
-    layers: [d25, refAcc, refAma, Info],
+    layers: [d25, Info],
     zoomControl: false
 });
 
 var hash= new L.Hash(map);
 
 var baseLayers= {
-    "RapidEye: 2016-08-25": d25,
-    "Sentinel-2A: 2016-08-24 10:00:32(UTC)": d24,
-    "Sentinel-2A: 2016-08-14 10:00:32(UTC)": d14,
+    "[zoom:12-15] RapidEye: 2016-08-25": d25,
+    "[zoom:12-15] Sentinel-2A: 2016-08-24 10:00:32(UTC)": d24,
+    "[zoom:12-15] Sentinel-2A: 2016-08-14 10:00:32(UTC)": d14,
+    "[zoom:14-16] Copernicus EMS Monitoring 02 Map": m02,
+    "[zoom:14-16] Copernicus EMS Reference Map": ref,
 };
 
 var overlayLayers= {
-    "Copernicus EMS Reference Map: Accumoli": refAcc,
-    "Copernicus EMS Reference Map: Amatrice": refAma,
     "Labels": Labels,
     "Points of Interest": Info,
 };
@@ -60,3 +83,30 @@ var overlayLayers= {
 L.control.layers(baseLayers, overlayLayers, {position: 'topleft'}).addTo(map);
 
 L.control.zoom({position: 'topleft'}).addTo(map);
+
+map.on('zoomend', function() {
+    if (map.getZoom() >= 14){
+        if (map.hasLayer(d14)) {
+            map.removeLayer(d14);
+	    map.addLayer(ref);
+        }
+	if (map.hasLayer(d24)) {
+            map.removeLayer(d24);
+	    map.addLayer(m02);
+        }
+	if (map.hasLayer(d25)) {
+            map.removeLayer(d25);
+	    map.addLayer(m02);
+        }
+    }
+    if (map.getZoom() < 14){
+        if (map.hasLayer(m02)){
+	    map.removeLayer(m02);
+	    map.addLayer(d25);
+        }
+	if (map.hasLayer(ref)){
+	    map.removeLayer(ref);
+	    map.addLayer(d14);
+        }
+    }
+});
