@@ -33,23 +33,39 @@ var d14= L.tileLayer(sUrl, {id: 'sentinel.d14',
 
 var m02= L.tileLayer(rUrl, {id: 'monit.02',
 			    mm: 'monit2',
-			    maxZoom: 16,
+			    maxZoom: 17,
 			    minZoom: 14,
 			    attribution: aAttr});
 
 var ref= L.tileLayer(rUrl, {id: 'ref.pre',
 			    mm: 'reference',
-			    maxZoom: 16,
+			    maxZoom: 17,
 			    minZoom: 14,
 			    attribution: aAttr});
 
-var earthquake= L.marker([42.70, 13.24]).bindPopup('Initial quake - magnitude 6.0 Mw; depth 4 km; 2016-08-24 01:36:32(UTC)'),
-    accumoli= L.marker([42.694, 13.2505]).bindPopup('Accumoli'),
-    amatrice= L.marker([42.629, 13.293]).bindPopup('Amatrice'),
-    pescara= L.marker([42.7526, 13.2713]).bindPopup('Pescara del Tronto'),
-    arquata= L.marker([42.7727, 13.2951]).bindPopup('Arquata del Tronto');
+var aer= L.tileLayer(rUrl, {id: 'aer.post',
+			    mm: 'ALL',
+			    maxZoom: 20,
+			    minZoom: 17,
+			    attribution: aAttr});
 
-var Info= L.layerGroup([earthquake, accumoli, amatrice, pescara, arquata]);
+var earthquake= L.marker([42.70, 13.24]).bindPopup('Initial quake - magnitude 6.0 Mw; depth 4 km; 2016-08-24 01:36:32(UTC)');
+
+var CAPODACQUA= L.marker([42.73796491, 13.23691295]).bindPopup('Capodacqua'),
+    CASALE= L.marker([42.66970995, 13.2860829]).bindPopup('Casale'),
+    ILLICA= L.marker([42.70289171, 13.26471722]).bindPopup('Illica'),
+    PESCARADELTRONTO= L.marker([42.75093709, 13.27109334]).bindPopup('Pescara del Tronto'),
+    SALETTA= L.marker([42.67129962, 13.27234934]).bindPopup('Saletta'),
+    ARQUATADEL= L.marker([42.77492965, 13.2946591]).bindPopup('Arquata del Tronto'),
+    AMATRICE= L.marker([42.62700757, 13.29142197]).bindPopup('Amatrice'),
+    POGGIOVITELLINO= L.marker([42.6511294, 13.26748308]).bindPopup('Poggio Vitellino'),
+    CORNILLOVECCHIO= L.marker([42.63692425, 13.28472067]).bindPopup('Cornillo Vecchio'),
+    SANLORENZOEFLAVIANO= L.marker([42.66492153, 13.28677634]).bindPopup('San Lorenzo e Flaviano'),
+    ROCCHETTA= L.marker([42.65671619, 13.28626227]).bindPopup('Rocchetta'),
+    ACCUMOLI= L.marker([42.69486882, 13.24757931]).bindPopup('Accumoli'),
+    SANTANGELO= L.marker([42.64945671, 13.30445542]).bindPopup("Sant'Angelo");
+
+var Info= L.layerGroup([CAPODACQUA, CASALE, ILLICA, PESCARADELTRONTO, SALETTA, ARQUATADEL, AMATRICE, POGGIOVITELLINO, CORNILLOVECCHIO, SANLORENZOEFLAVIANO, ROCCHETTA, ACCUMOLI, SANTANGELO]);
 
 var Labels= Tangram.leafletLayer({
     scene: '../../lib/tangram/labels.yaml',
@@ -59,7 +75,7 @@ var Labels= Tangram.leafletLayer({
 var map= L.map('map', {
     center: [42.7, 13.24],
     zoom: 12,
-    maxZoom: 16,
+    maxZoom: 20,
     minZoom: 12,
     layers: [d25, Info],
     zoomControl: false
@@ -71,13 +87,14 @@ var baseLayers= {
     "[zoom:12-15] RapidEye: 2016-08-25": d25,
     "[zoom:12-15] Sentinel-2A: 2016-08-24 10:00:32(UTC)": d24,
     "[zoom:12-15] Sentinel-2A: 2016-08-14 10:00:32(UTC)": d14,
-    "[zoom:14-16] Copernicus EMS Monitoring 02 Map": m02,
-    "[zoom:14-16] Copernicus EMS Reference Map": ref,
+    "[zoom:14-17] Copernicus EMS Monitoring 02 Map": m02,
+    "[zoom:14-17] Copernicus EMS Reference Map": ref,
+    "[zoom:17-20] Copernicus EMS Aerial Maps": aer,
 };
 
 var overlayLayers= {
     "Labels": Labels,
-    "Points of Interest": Info,
+    "Aerial Maps": Info,
 };
 
 L.control.layers(baseLayers, overlayLayers, {position: 'topleft'}).addTo(map);
@@ -85,7 +102,7 @@ L.control.layers(baseLayers, overlayLayers, {position: 'topleft'}).addTo(map);
 L.control.zoom({position: 'topleft'}).addTo(map);
 
 map.on('zoomend', function() {
-    if (map.getZoom() >= 14){
+    if (map.getZoom() > 14){
         if (map.hasLayer(d14)) {
             map.removeLayer(d14);
 	    map.addLayer(ref);
@@ -99,6 +116,16 @@ map.on('zoomend', function() {
 	    map.addLayer(m02);
         }
     }
+    if (map.getZoom() > 17){
+        if (map.hasLayer(ref)) {
+	    map.removeLayer(ref);
+	    map.addLayer(aer);
+        }
+	if (map.hasLayer(m02)) {
+            map.removeLayer(m02);
+	    map.addLayer(aer);
+        }
+    }
     if (map.getZoom() < 14){
         if (map.hasLayer(m02)){
 	    map.removeLayer(m02);
@@ -107,6 +134,12 @@ map.on('zoomend', function() {
 	if (map.hasLayer(ref)){
 	    map.removeLayer(ref);
 	    map.addLayer(d14);
+        }
+    }
+    if (map.getZoom() < 17){
+        if (map.hasLayer(aer)){
+	    map.removeLayer(aer);
+	    map.addLayer(m02);
         }
     }
 });
