@@ -8,7 +8,8 @@ var lAttr = '© <a href="https://openstreetmap.org/copyright">OSM</a>' +
 
 var sUrl = 'http://tile.sentinelmap.eu/16/{mm}/{z}/{x}/{y}.jpg' ;
 
-var jul16 = L.tileLayer( sUrl , {id: 'sentinel.jul16', mm: '7', attribution: Attr}),
+var aug16 = L.tileLayer( sUrl , {id: 'sentinel.aug16', mm: '8', attribution: Attr}),
+    jul16 = L.tileLayer( sUrl , {id: 'sentinel.jul16', mm: '7', attribution: Attr}),
     jun16 = L.tileLayer( sUrl , {id: 'sentinel.jun16', mm: '6', attribution: Attr}),
     may16 = L.tileLayer( sUrl , {id: 'sentinel.may16', mm: '5', attribution: Attr}),
     apr16 = L.tileLayer( sUrl , {id: 'sentinel.apr16', mm: '4', attribution: Attr});
@@ -23,13 +24,14 @@ var map = L.map('map' , {
     zoom: 7,
     maxZoom: 14,
     minZoom: 7,
-    layers: [jul16, Labels],
+    layers: [aug16, Labels],
     zoomControl: false
 });
 
 var hash = new L.Hash(map);
 
 var baseLayers = {
+    "AUGUST 2016": aug16,
     "JULY 2016": jul16,
     "JUNE 2016": jun16,
     "MAY 2016 (partial)": may16,
