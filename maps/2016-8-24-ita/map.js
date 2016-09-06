@@ -107,45 +107,45 @@ L.control.layers(baseLayers, overlayLayers, {position: 'topleft'}).addTo(map);
 
 L.control.zoom({position: 'topleft'}).addTo(map);
 
-// map.on('zoomend', function() {
-//     if (map.getZoom() > 14){
-//         if (map.hasLayer(d14)) {
-//             map.removeLayer(d14);
-// 	    map.addLayer(ref);
-//         }
-// 	if (map.hasLayer(d24)) {
-//             map.removeLayer(d24);
-// 	    map.addLayer(m02);
-//         }
-// 	if (map.hasLayer(d25)) {
-//             map.removeLayer(d25);
-// 	    map.addLayer(m02);
-//         }
-//     }
-//     if (map.getZoom() > 17){
-//         if (map.hasLayer(ref)) {
-// 	    map.removeLayer(ref);
-// 	    map.addLayer(aer);
-//         }
-// 	if (map.hasLayer(m02)) {
-//             map.removeLayer(m02);
-// 	    map.addLayer(aer);
-//         }
-//     }
-//     if (map.getZoom() < 14){
-//         if (map.hasLayer(m02)){
-// 	    map.removeLayer(m02);
-// 	    map.addLayer(d25);
-//         }
-// 	if (map.hasLayer(ref)){
-// 	    map.removeLayer(ref);
-// 	    map.addLayer(d14);
-//         }
-//     }
-//     if (map.getZoom() < 17){
-//         if (map.hasLayer(aer)){
-// 	    map.removeLayer(aer);
-// 	    map.addLayer(m02);
-//         }
-//     }
-// });
+map.on('zoomend', function() {
+    if (map.getZoom() > 14){
+        if (map.hasLayer(d14)) {
+            map.removeLayer(d14);
+	    map.addLayer(ref);
+        }
+	if (map.hasLayer(d24)) {
+            map.removeLayer(d24);
+	    map.addLayer(m02);
+        }
+	if (map.hasLayer(d25)) {
+            map.removeLayer(d25);
+	    map.addLayer(m02);
+        }
+    }
+    if (map.getZoom() > 17){
+        if (map.hasLayer(ref)) {
+	    map.removeLayer(ref);
+	    map.addLayer(aer);
+        }
+	if (map.hasLayer(m02)) {
+            map.removeLayer(m02);
+	    map.addLayer(aer);
+        }
+    }
+    if (map.getZoom() < 14){
+        if (map.hasLayer(m02)){
+	    map.removeLayer(m02);
+	    map.addLayer(d25);
+        }
+	if (map.hasLayer(ref)){
+	    map.removeLayer(ref);
+	    map.addLayer(d14);
+        }
+    }
+    if (map.getZoom() < 17){
+        if (map.hasLayer(aer)){
+	    map.removeLayer(aer);
+	    map.addLayer(m02);
+        }
+    }
+});
