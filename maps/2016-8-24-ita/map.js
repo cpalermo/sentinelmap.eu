@@ -15,22 +15,19 @@ var sUrl= 'http://tile.sentinelmap.eu/ita/{mm}/{z}/{x}/{y}.jpg' ,
 
 var d25= L.tileLayer(rUrl, {id: 'rapideye.d25',
 			    mm: '160825',
-			    maxNativeZoom: 15,
-			    maxZoom: 20,
+			    maxZoom: 15,
 			    minZoom: 12,
 			    attribution: pAttr});
 
 var d24= L.tileLayer(sUrl, {id: 'sentinel.d24',
 			    mm: '160824',
-			    maxNativeZoom: 15,
-			    maxZoom: 20,
+			    maxZoom: 15,
 			    minZoom: 12,
 			    attribution: Attr});
 
 var d14= L.tileLayer(sUrl, {id: 'sentinel.d14',
 			    mm: '160814',
-			    maxNativeZoom: 15,
-			    maxZoom: 20,
+			    maxZoom: 15,
 			    minZoom: 12,
 			    attribution: Attr});
 
