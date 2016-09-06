@@ -15,36 +15,42 @@ var sUrl= 'http://tile.sentinelmap.eu/ita/{mm}/{z}/{x}/{y}.jpg' ,
 
 var d25= L.tileLayer(rUrl, {id: 'rapideye.d25',
 			    mm: '160825',
-			    maxZoom: 15,
+			    maxNativeZoom: 15,
+			    maxZoom: 20,
 			    minZoom: 12,
 			    attribution: pAttr});
 
 var d24= L.tileLayer(sUrl, {id: 'sentinel.d24',
 			    mm: '160824',
-			    maxZoom: 15,
+			    maxNativeZoom: 15,
+			    maxZoom: 20,
 			    minZoom: 12,
 			    attribution: Attr});
 
 var d14= L.tileLayer(sUrl, {id: 'sentinel.d14',
 			    mm: '160814',
-			    maxZoom: 15,
+			    maxNativeZoom: 15,
+			    maxZoom: 20,
 			    minZoom: 12,
 			    attribution: Attr});
 
 var m02= L.tileLayer(rUrl, {id: 'monit.02',
 			    mm: 'monit2',
-			    maxZoom: 17,
+			    maxNativeZoom: 17,
+			    maxZoom: 20,
 			    minZoom: 14,
 			    attribution: aAttr});
 
 var ref= L.tileLayer(rUrl, {id: 'ref.pre',
 			    mm: 'reference',
-			    maxZoom: 17,
+			    maxNativeZoom: 17,
+			    maxZoom: 20,
 			    minZoom: 14,
 			    attribution: aAttr});
 
 var aer= L.tileLayer(rUrl, {id: 'aer.post',
 			    mm: 'ALL',
+			    maxNativeZoom: 20,
 			    maxZoom: 20,
 			    minZoom: 17,
 			    attribution: aAttr});
@@ -101,45 +107,45 @@ L.control.layers(baseLayers, overlayLayers, {position: 'topleft'}).addTo(map);
 
 L.control.zoom({position: 'topleft'}).addTo(map);
 
-map.on('zoomend', function() {
-    if (map.getZoom() > 14){
-        if (map.hasLayer(d14)) {
-            map.removeLayer(d14);
-	    map.addLayer(ref);
-        }
-	if (map.hasLayer(d24)) {
-            map.removeLayer(d24);
-	    map.addLayer(m02);
-        }
-	if (map.hasLayer(d25)) {
-            map.removeLayer(d25);
-	    map.addLayer(m02);
-        }
-    }
-    if (map.getZoom() > 17){
-        if (map.hasLayer(ref)) {
-	    map.removeLayer(ref);
-	    map.addLayer(aer);
-        }
-	if (map.hasLayer(m02)) {
-            map.removeLayer(m02);
-	    map.addLayer(aer);
-        }
-    }
-    if (map.getZoom() < 14){
-        if (map.hasLayer(m02)){
-	    map.removeLayer(m02);
-	    map.addLayer(d25);
-        }
-	if (map.hasLayer(ref)){
-	    map.removeLayer(ref);
-	    map.addLayer(d14);
-        }
-    }
-    if (map.getZoom() < 17){
-        if (map.hasLayer(aer)){
-	    map.removeLayer(aer);
-	    map.addLayer(m02);
-        }
-    }
-});
+// map.on('zoomend', function() {
+//     if (map.getZoom() > 14){
+//         if (map.hasLayer(d14)) {
+//             map.removeLayer(d14);
+// 	    map.addLayer(ref);
+//         }
+// 	if (map.hasLayer(d24)) {
+//             map.removeLayer(d24);
+// 	    map.addLayer(m02);
+//         }
+// 	if (map.hasLayer(d25)) {
+//             map.removeLayer(d25);
+// 	    map.addLayer(m02);
+//         }
+//     }
+//     if (map.getZoom() > 17){
+//         if (map.hasLayer(ref)) {
+// 	    map.removeLayer(ref);
+// 	    map.addLayer(aer);
+//         }
+// 	if (map.hasLayer(m02)) {
+//             map.removeLayer(m02);
+// 	    map.addLayer(aer);
+//         }
+//     }
+//     if (map.getZoom() < 14){
+//         if (map.hasLayer(m02)){
+// 	    map.removeLayer(m02);
+// 	    map.addLayer(d25);
+//         }
+// 	if (map.hasLayer(ref)){
+// 	    map.removeLayer(ref);
+// 	    map.addLayer(d14);
+//         }
+//     }
+//     if (map.getZoom() < 17){
+//         if (map.hasLayer(aer)){
+// 	    map.removeLayer(aer);
+// 	    map.addLayer(m02);
+//         }
+//     }
+// });
