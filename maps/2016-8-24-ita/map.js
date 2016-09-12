@@ -33,18 +33,21 @@ var d14= L.tileLayer(sUrl, {id: 'sentinel.d14',
 
 var m02= L.tileLayer(rUrl, {id: 'monit.02',
 			    mm: 'monit2',
-			    maxZoom: 17,
+			    maxNativeZoom: 17,
+			    maxZoom: 20,
 			    minZoom: 14,
 			    attribution: aAttr});
 
 var ref= L.tileLayer(rUrl, {id: 'ref.pre',
 			    mm: 'reference',
-			    maxZoom: 17,
+			    maxNativeZoom: 17,
+			    maxZoom: 20,
 			    minZoom: 14,
 			    attribution: aAttr});
 
 var aer= L.tileLayer(rUrl, {id: 'aer.post',
 			    mm: 'ALL',
+			    maxNativeZoom: 20,
 			    maxZoom: 20,
 			    minZoom: 17,
 			    attribution: aAttr});
